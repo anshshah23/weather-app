@@ -16,7 +16,7 @@ function App() {
   return (
     <div className='w-full h-screen text-white px-4 sm:px-8 flex flex-col items-center justify-between overflow-auto'>
       <BackgroundLayout />
-      <nav className='w-full p-3 flex flex-col sm:flex-row justify-between items-center'>
+      <nav className='w-full p-3 flex flex-col sm:flex-row justify-between items-center bg-opacity-20 bg-black rounded mb-10 shadow-black hover:shadow-md hover:shadow-gray-900 hover:bg-opacity-30 duration-500'>
         <h1 className='font-bold tracking-wide text-2xl sm:text-3xl'>Weather App</h1>
         <div className='bg-white w-[12rem] sm:w-[15rem] overflow-hidden shadow-2xl rounded flex items-center p-2 gap-2'>
           <img src={search} alt="search" className='w-[1.5rem] h-[1.5rem]' />
