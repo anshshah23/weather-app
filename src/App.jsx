@@ -44,7 +44,7 @@ function App() {
           iconString={weather.conditions}
           conditions={weather.conditions}
         />
-        <div className='flex flex-wrap justify-center gap-4 sm:gap-8 w-full mt-8'>
+        <div className='flex flex-wrap justify-center gap-4 sm:gap-8 w-full mt-8 mb-20'>
           {values?.slice(1, 7).map(curr => (
             <MiniCard
               key={curr.datetime}
