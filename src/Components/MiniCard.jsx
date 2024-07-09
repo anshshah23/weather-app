@@ -7,32 +7,49 @@ import rain from '../assets/icons/rain.png';
 import snow from '../assets/icons/snow.png';
 import storm from '../assets/icons/storm.png';
 import wind from '../assets/icons/windy.png';
-
-const MiniCard = ({ time, temp, iconString }) => {
-  const [icon, setIcon] = useState();
+import defaultIcon from '../assets/icons/default.png';
+const MiniCard = ({ time, temp, iconString, onClick }) => {
+  const [icon, setIcon] = useState(defaultIcon);
 
   useEffect(() => {
     if (iconString) {
-      if (iconString.toLowerCase().includes('cloud')) {
-        setIcon(cloud);
-      } else if (iconString.toLowerCase().includes('rain')) {
-        setIcon(rain);
-      } else if (iconString.toLowerCase().includes('clear')) {
-        setIcon(sun);
-      } else if (iconString.toLowerCase().includes('thunder')) {
-        setIcon(storm);
-      } else if (iconString.toLowerCase().includes('fog')) {
-        setIcon(fog);
-      } else if (iconString.toLowerCase().includes('snow')) {
-        setIcon(snow);
-      } else if (iconString.toLowerCase().includes('wind')) {
-        setIcon(wind);
+      switch (true) {
+        case iconString.toLowerCase().includes('cloud'):
+          setIcon(cloud);
+          break;
+        case iconString.toLowerCase().includes('rain'):
+          setIcon(rain);
+          break;
+        case iconString.toLowerCase().includes('clear'):
+          setIcon(sun);
+          break;
+        case iconString.toLowerCase().includes('thunder'):
+          setIcon(storm);
+          break;
+        case iconString.toLowerCase().includes('fog'):
+          setIcon(fog);
+          break;
+        case iconString.toLowerCase().includes('snow'):
+          setIcon(snow);
+          break;
+        case iconString.toLowerCase().includes('wind'):
+          setIcon(wind);
+          break;
+        case iconString.toLowerCase().includes('mist'):
+          setIcon(fog);
+          break;
+        default:
+          setIcon(defaultIcon);
+          break;
       }
     }
   }, [iconString]);
 
   return (
-    <div className='w-[10rem] h-[10rem] flex flex-col rounded-xl shadow-gray-900 shadow-xl hover:scale-105 hover:shadow-2xl hover:shadow-gray-900 hover:bg-opacity-70 bg-gray-500 duration-500 border-white border-[1px] p-4 glassCard'>
+    <div
+      className='w-[10rem] h-[10rem] flex flex-col rounded-xl shadow-gray-900 shadow-xl hover:scale-105 hover:shadow-2xl hover:shadow-gray-900 hover:bg-opacity-70 bg-gray-500 duration-500 border-white border-[1px] p-4 glassCard'
+      onClick={onClick}
+    >
       <p className='text-center'>
         {new Date(time).toLocaleTimeString('en', { weekday: 'long' }).split(' ')[0]}
       </p>

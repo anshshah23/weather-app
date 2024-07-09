@@ -4,11 +4,12 @@ import { useStateContext } from '../Context';
 import Clear from '../assets/images/Clear.jpg';
 import Fog from '../assets/images/fog.png';
 import Cloudy from '../assets/images/Cloudy.jpg';
-import Rainy from '../assets/images/Rainy.jpg';
+import Rainy from '../assets/images/Rain.jpg';
 import Snow from '../assets/images/snow.jpg';
 import Stormy from '../assets/images/Stormy.jpg';
 import Sunny from '../assets/images/Sunny.jpg';
-
+import Haze from '../assets/images/haze.jpg';
+import Overcast from '../assets/images/Overcast.jpg';
 const BackgroundLayout = () => {
   const { weather } = useStateContext();
   const [image, setImage] = useState(Clear);
@@ -28,6 +29,14 @@ const BackgroundLayout = () => {
         setImage(Fog);
       } else if (imageString.toLowerCase().includes('thunder') || imageString.toLowerCase().includes('storm')) {
         setImage(Stormy);
+      } else if (imageString.toLowerCase().includes('haze')) {
+        setImage(Haze);
+      }
+      else if (imageString.toLowerCase().includes('overcast')) {
+        setImage(Overcast);
+      }
+      else {
+        setImage(Sunny);
       }
     }
   }, [weather]);

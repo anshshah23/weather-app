@@ -6,8 +6,9 @@ const StateContext = createContext();
 export const StateContextProvider = ({ children }) => {
     const [weather, setWeather] = useState({});
     const [values, setValues] = useState([]);
-    const [place, setPlace] = useState('');  // Initially empty, will be set later
+    const [place, setPlace] = useState('');
     const [location, setLocation] = useState('');
+    const [timezone, setTimezone] = useState('UTC'); // Default timezone
 
     const fetchWeather = async (place) => {
         if (!place) {
@@ -32,13 +33,12 @@ export const StateContextProvider = ({ children }) => {
         };
 
         try {
-            console.log(`Fetching weather for: ${place}`);
             const response = await axios.request(options);
-            console.log(response.data);
             const thisData = Object.values(response.data.locations)[0];
             setLocation(thisData.address);
             setValues(thisData.values);
             setWeather(thisData.values[0]);
+            setTimezone(thisData.timezone || 'UTC');
         } catch (error) {
             console.error(error);
             alert('An error occurred while fetching weather data or the place you entered is invalid. Please try again.');
@@ -52,7 +52,7 @@ export const StateContextProvider = ({ children }) => {
             setPlace(city);
         } catch (error) {
             console.error('Error fetching user location:', error);
-            setPlace('Mumbai');  // Fallback to Mumbai if geolocation fails
+            setPlace('Mumbai');
         }
     };
 
@@ -62,16 +62,12 @@ export const StateContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (place) {
-            fetchWeather(place);  // Ensure place is passed to fetchWeather
+            fetchWeather(place);
         }
     }, [place]);
 
-    useEffect(() => {
-        console.log(values);
-    }, [values]);
-
     return (
-        <StateContext.Provider value={{ weather, setPlace, values, location }}>
+        <StateContext.Provider value={{ weather, setPlace, values, location, timezone }}>
             {children}
         </StateContext.Provider>
     );
